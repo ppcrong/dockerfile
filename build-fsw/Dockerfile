@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 
+ENV IMAGE_NAME build-fsw:1.0.3313271966.0
 ENV USER_PATH /root
 ENV TOOL_PATH ${USER_PATH}/tool
 
