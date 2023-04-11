@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ENV IMAGE_NAME build-fsw:1.0.3313271966.0
+ENV IMAGE_NAME build-fsw:1.0.3314212643.0
 ENV USER_PATH /root
 ENV TOOL_PATH ${USER_PATH}/tool
 
@@ -22,13 +22,13 @@ RUN apt update && apt install -y \
 
 # Ubuntu 18.04 ships with cmake-3.10.2
 # cfsext/tests/gtest needs cmake 3.14+
-# update cmake to the latest version for gtest
+# test-asan needs cmake 3.16.3
 RUN apt update && apt install -y \
     software-properties-common
 RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
 RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
 RUN apt update && apt install -y \
-    cmake
+    cmake=3.16.3-0kitware1 cmake-data=3.16.3-0kitware1
 
 # aptitude install dependencies
 RUN aptitude update && aptitude install -y \
@@ -197,6 +197,14 @@ RUN sudo echo "PATH=\"\${HOME}/.bin:\${PATH}\"" | sudo tee -a ~/.bashrc
 RUN apt install -y cpio \
     rsync \
     bc
+
+####################################################################################
+# install test-asan dependencies
+# iproute2 for cmd "ip a" to check ip address
+# ifupdown for test-asan target using /etc/init.d/networking
+RUN apt update && apt install -y \
+    iproute2 \
+    ifupdown
 
 ####################################################################################
 # remove all tool source
