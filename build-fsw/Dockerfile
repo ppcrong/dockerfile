@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ENV IMAGE_NAME build-fsw:1.0.3314222537.0
+ENV IMAGE_NAME build-fsw:1.0.3314222760.0
 ENV USER_PATH /root
 ENV TOOL_PATH ${USER_PATH}/tool
 
@@ -204,6 +204,10 @@ RUN apt install -y cpio \
 RUN apt update && apt install -y \
     iproute2 \
     ifupdown
+
+####################################################################################
+# change python symbolic link to python3
+RUN sudo ln -sf /usr/bin/python3 /usr/bin/python
 
 ####################################################################################
 # remove all tool source
