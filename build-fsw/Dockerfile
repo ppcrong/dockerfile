@@ -45,7 +45,6 @@ RUN ls -l /usr/bin/llvm-config*
 
 # aptitude install dependencies (take long time)
 RUN aptitude install -y \
-    cmake \
     libblas-dev \
     liblapack-dev \
     gcc-multilib \
